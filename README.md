@@ -1,6 +1,5 @@
-##A Following System with Flask
-##
-run "python app.py" to run server
+## A Following System with Flask
+run `python app.py` to run server
 ##
 open "http://localhost:5000/apidocs" in browser to see documents in swagger
 
