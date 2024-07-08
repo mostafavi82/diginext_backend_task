@@ -1,6 +1,8 @@
 ## A Following System with Flask
 run `python app.py` to run server
 ##
+connect to `mongodb://localhost:27017` in MongoDB Compass
+##
 open "http://localhost:5000/apidocs" in browser to see documents in swagger
 
 
