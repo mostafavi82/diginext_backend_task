@@ -1,1 +1,3 @@
-# diginext_backend_task
+یک سیستم فالویینگ با flask که از پنج api تشکیل شده است.
+با اجرای دستور python app.py سرور ران می شود.
+با استفاده از لینک http://localhost:5000/apidocs می توان مستند های api ها را در swagger مشاهده و آنها را تست کرد.
