@@ -1,6 +1,8 @@
-یک سیستم فالویینگ با flask##
-با اجرای دستور python app.py سرور ران می شود.
+##A Following System with Flask
 ##
-با استفاده از لینک http://localhost:5000/apidocs می توان مستند های api ها را در swagger مشاهده و آنها را تست کرد.
+run "python app.py" to run server
+##
+open "http://localhost:5000/apidocs" in browser to see documents in swagger
+
 
 ![2024-07-08](https://github.com/mostafavi82/diginext_backend_task/assets/118309983/4410cc3f-3bdd-49d5-b87b-089598c7a9b4)
