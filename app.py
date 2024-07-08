@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, Response,  make_response
 from flask_restful import Api, Resource
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 from datetime import datetime
 from flasgger import Swagger
 import json
@@ -56,14 +57,15 @@ class FollowAPI(Resource):
             description: Unsupported media type
         """
         if request.content_type != 'application/json':
-            return jsonify({'error': 'Content-Type must be application/json'}), 415
+            return make_response(jsonify({'error': 'Content-Type must be application/json'}), 415)
+            
 
         data = request.get_json()
         follower_id = data.get('follower_id')
         followee_id = data.get('followee_id')
 
         if not follower_id or not followee_id:
-            return jsonify({'error': 'Missing follower_id or followee_id'}), 400
+            return make_response(jsonify({'error': 'Missing follower_id or followee_id'}), 400)
 
         
         add_user_if_not_exists(follower_id)
@@ -73,7 +75,7 @@ class FollowAPI(Resource):
         followee = db.users.find_one({'_id': followee_id})
 
         if followee_id in follower.get('following', []):
-            return jsonify({'error': 'Already following'}), 400
+            return make_response(jsonify({'error': 'Already following'}), 400)
 
         current_date_str = get_current_date_str()
 
@@ -125,14 +127,14 @@ class UnfollowAPI(Resource):
             description: Unsupported media type
         """
         if request.content_type != 'application/json':
-            return jsonify({'error': 'Content-Type must be application/json'}), 415
+            return make_response(jsonify({'error': 'Content-Type must be application/json'}), 415)
 
         data = request.get_json()
         follower_id = data.get('follower_id')
         followee_id = data.get('followee_id')
 
         if not follower_id or not followee_id:
-            return jsonify({'error': 'Missing follower_id or followee_id'}), 400
+            return make_response(jsonify({'error': 'Missing follower_id or followee_id'}), 400)
 
       
         add_user_if_not_exists(follower_id)
@@ -188,7 +190,7 @@ class FollowersCountAPI(Resource):
         user = db.users.find_one({'_id': user_id})
 
         if not user:
-            return jsonify({'error': 'User not found'}), 404
+            return make_response(jsonify({'error': 'User not found'}), 404)
 
         
         return make_response(jsonify({'followers_count': user['follow_count']}), 200)
@@ -225,13 +227,15 @@ class CommonFollowersAPI(Resource):
         user1_id = data.get('user1_id')
         user2_id = data.get('user2_id')
         if not user1_id or not user2_id:
-            return jsonify({'error': 'Missing user1_id or user2_id'}), 400
+            return make_response(jsonify({'error': 'Missing user1_id or user2_id'}), 400)
+            
 
         user1 = db.users.find_one({'_id': user1_id})
         user2 = db.users.find_one({'_id': user2_id})
 
         if not user1 or not user2:
-            return jsonify({'error': 'User not found'}), 404
+            return make_response(jsonify({'error': 'User not found'}), 404)
+            
 
         followers_user1 = set(user1.get('followers', []))
         followers_user2 = set(user2.get('followers', []))
